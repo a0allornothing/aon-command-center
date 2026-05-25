@@ -499,8 +499,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-si
 //  creating your Supabase project at
 //  https://supabase.com
 // ═══════════════════════════════════════════
-const SUPABASE_URL = 'https://mutvbsjjchvljvtlzenj.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11dHZic2pqY2h2bGp2dGx6ZW5qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MDEzNDgsImV4cCI6MjA5NTA3NzM0OH0.mJUzhXQR5XR-yUEu-5YNIkq3K1f8rPp-sDn4iOtnL5g';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 const INVITE_CODE  = 'AON2024';
 
 // ═══════════════════════════════════════════
@@ -590,17 +590,7 @@ async function doAuth() {
         options: { data: { display_name: name, initials: name.slice(0,2).toUpperCase(), role: 'member' } }
       });
       if (error) throw error;
-if (!data.user) {
-  // Email confirmation is on — user needs to check their inbox
-  errEl.style.color = 'var(--grn)';
-  errEl.textContent = 'Account created! Check your email to confirm, then sign in.';
-  $('lbtn').disabled = false;
-  $('lbtn-txt').style.display = 'block';
-  $('lspin').style.display = 'none';
-  setMode('in');
-  return;
-}
-me = { id: data.user.id, email };
+      me = { id: data.user.id, email };
     } else {
       const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
       if (error) throw error;
